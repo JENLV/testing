@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="imp.js"></script>
+    <script src="work.ts"></script>
+    <script src="ts"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+      
+
+    function clickmarker(marker) {
+      document.getElementById("textplace").innerHTML = marker;
+    }
+      
+      // mainīt marķiera lokāciju
+      var changevar = 0 // ciklē cauri marķieriem
+      function change() {
+        remove()
+        add(changevar)
+        changevar += 1
+        if (changevar >= locations.length){
+          changevar = 0
+        }
+      }
+      
+      function add(listnum) {
+        for (var i = 0; i<locations[listnum].length;i++){
+          m = L.marker({lat: locations[listnum][i][0], lon: locations[listnum][i][1]}).bindPopup(locations[listnum][i][2]).addTo(map)
+          const send = locations[listnum][i][3]
+          m.on('click', function() {clickmarker(send);})
+          ml.push(m);
+      }}
+      
+      function remove() {
+        for (;0<ml.length;){
+          ml[0].remove()
+          ml.shift()
+        }
+      }
+
+      function doit() {
+        remove()
+        add(0)
+      }
+      
+      // STARTS
+
+      var locations = [
+        [[57.38454, 21.57481, "Reņķa dārza strūklaka", "Strūklaka uzstādīta 2006. gadā (projektētājs SIA “AKVEDUKTS” Gints Jaudzems).<p><p>Reņķa dārza dīķī uzstādītās peldošās strūklakas augstums tiek regulēts atkarībā no vēja stipruma.<p><p>Iestājoties tumsai, strūklaka tiek izgaismota, savukārt dīķa malā izvietotie soliņi ir patīkama vieta atpūtai. "], 
+        [57.37302, 21.54654, "Lemberga hūte", "Ventspilnieki pratuši uzbūvēt kalnu un devuši tam ilggadējā pilsētas mēra vārdu – „Lemberga hūte”. Unikālais kalns Rietumlatvijas piejūras zemienē radīts mākslīgi, izmantojot būvgružus un rekonstruējamo ielu nederīgo grunts segumu. Tā augstums šobrīd ir 58 m, nobrauciena garums 240 m un tas tiek palielināts katru gadu.<p><p>Ziemā kalns iepriecina slēpotājus un snovbordistus, kuriem izveidots īpašs snovborda parks un kalnu slēpošanas trase. Līksmus brīžus sagādā arī kameršļūkšanas trase un bērnu trase nobraucieniem ar ragaviņām. Kalna darbību nodrošina pieci pacēlāji, pieci sniega pūtēji un sniega traktors. Trases ir apgaismotas. Tiem, kas slēpojot vēl nejūtas īsti droši, palīdzēs prasmīgi slēpošanas instruktori. Kalna pakājē darbojas arī kalnu slēpošanas un snovborda inventāra noma.<p><p>Turklāt, ikvienam apmeklētajam ir iespēja uzkāpt kalna “Lemberga Hūte” virsotnē, no kurienes paveras unikāls skats, kas ir atzīts par Dižāko skatu Kurzemē 2018.<p><p>Iestājoties slēpošanai piemērotiem laika apstākļiem, kalns darbojas katru dienu."], 
+        [57.37316, 21.57015, "Gāliņciema bibliotēka", "Ģimenes bibliotēka ar nelielu, bet interesantu krājumu bērniem, pusaudžiem, viņu vecākiem un vecvecākiem. Bibliotēka dibināta 1954. gadā un sākotnēji atradās Mācītājmuižā, pēc tam 20 gadus – 90 kvadrātmetru lielā telpā blakus vietējam doktorātam. 2023. gada 4. augustā tika atvērta jaunā Gāliņciema bibliotēka – daudzfunkcionālais pakalpojumu centrs, Kuldīgas ielā 138.<p><p>620 kvadrātmetrus plašā ēka tapusi ar Eiropas Savienības fondu līdzfinansējumu un kalpo apkārtnes iedzīvotājiem kā kultūras un sabiedriskais centrs. Pasākumu zālē var uzņemt līdz 60 cilvēkiem, to iespējams iznomāt. Bibliotēkā ir brīvpieejas datori, atsevišķa zona bērniem un jauniešiem. Jaunajās telpās  izveidoti un ieviesti seši jauni pakalpojumi, kas saistīti ar tradicionālā dzīvesveida un savdabības saglabāšanu tādās jomās kā ventiņu valoda un folklora, seno arodu prasmes, literatūra un rakstniecība, kultūras un dabas mantojuma apzināšana un saglabāšana un iespēja saņemt atbalstu digitālo prasmju, tehnoloģiju apguvei un pielietošanai.<p><p> Bibliotēkas pakalpojumi pieejami arī cilvēkiem ar redzes vai uztveres traucējumiem un citādām lasīšanas grūtībām – krājumā ir grāmatas un periodiskie izdevumi audio formātā, Braila rakstā, palielinātajā drukā, vieglajā valodā, kā arī pieejams dators ar specializētu aprīkojumu vājredzīgiem un neredzīgiem lietotājiem."]], 
+                       
+        [[57.38905, 21.56875, 'Jāņa māja', "Teksta blāķis par Jāņa māju"], 
+         [57.38580, 21.54850, 'Gustava māja', "Cits teksta blāķis par Gustava māju un viņa Itāliju"], 
+         [57.38991, 21.56133, 'Pauļa māja', "Teksta blāķis par Pauli un viņa vēlmi iekarot Eiropu un nodot savus draugus spēlē \"Diplomātija\"<p><p> Šobrīd Pauli var apdraudēt tikai Francijas alianse ar Vāciju... tāpēc uzmanies..."]],
+                       
+        ]
+      var ml = []
+      
+      var map = L.map('map').setView({lon: 21.56, lat: 57.39}, 15);
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+      }).addTo(map);
+      L.control.scale({imperial: false, metric: true}).addTo(map);
+      
+    </script>
+    
+    <button id="b1" onclick=change()>Mainīt punktus</button> 
+    <div id="textplace">abc 123</div>
+    
+  </body>
+</html>

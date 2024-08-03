@@ -1,0 +1,17 @@
+html, body {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+#map {
+  /* configure the size of the map */
+  width: 100%;
+  height: 80%;
+}
+
+#b1 {
+  position:absolute;
+  top: 100px;
+  z-index: 10000;
+}
